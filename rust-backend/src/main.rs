@@ -1,9 +1,10 @@
 use axum::Router;
+use controller::start_login_handler;
 use http::{header::{AUTHORIZATION, CONTENT_TYPE}, HeaderValue, Method};
 
 // use http::{header::{HeaderValue, ACCEPT, AUTHORIZATION, CONTENT_TYPE}, Method};
 
-use crate::controller::{get_info_handler, login_handler, hello_world_handler, logout_handler, start_registration_handler, finalize_registration_handler};
+use crate::controller::{get_info_handler, login_handler, hello_world_handler, logout_handler, start_registration_handler, finalize_registration_handler, start_passkey_login_handler, finalize_passkey_login_handler};
 use axum::routing::{get, post};
 
 use tower_http::cors::CorsLayer;
@@ -26,6 +27,8 @@ async fn main() {
         .route("/logout", post(logout_handler))
         .route("/passkeys/start-registration", post(start_registration_handler))
         .route("/passkeys/finalize-registration", post(finalize_registration_handler))
+        .route("/passkeys/start-login", post(start_passkey_login_handler))
+        .route("/passkeys/finalize-login", post(finalize_passkey_login_handler))
         .layer(cors);
 
     let listener = tokio::net::TcpListener::bind("127.0.0.1:8080")

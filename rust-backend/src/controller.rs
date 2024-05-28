@@ -135,7 +135,7 @@ const BASE_URL: &str = "https://passkeys.hanko.io";
 pub async fn start_registration_handler(Json(user): Json<UserForRegistration>) -> Result<Json<serde_json::Value>, StatusCode> {
     let client = reqwest::Client::new();
     let url = format!("{}/{}/registration/initialize", BASE_URL, TENANT_ID);
-    let payload = json!({ "user_id": "55c81b3d-1e7d-4a72-a6b0-ad946e0c0965", "username": "ab@g.com" });
+    let payload = json!({ "user_id": user.id, "username": user.email });
 
     let mut headers = HeaderMap::new();
     headers.insert("apikey", HeaderValue::from_static(API_KEY));
@@ -180,7 +180,7 @@ pub async fn finalize_registration_handler(Json(data): Json<serde_json::Value>) 
 }
 
 
-pub async fn start_login_handler() -> Result<Json<LoginOptions>, StatusCode> {
+pub async fn start_passkey_login_handler() -> Result<Json<LoginOptions>, StatusCode> {
     let client = reqwest::Client::new();
     let url = format!("{}/login/initialize", BASE_URL);
     let headers = [("Content-Type", "application/json")]; // Add more headers as needed
@@ -197,7 +197,7 @@ pub async fn start_login_handler() -> Result<Json<LoginOptions>, StatusCode> {
     Ok(Json(login_options))
 }
 
-pub async fn finalize_login_handler(Json(client_data): Json<ClientData>) -> Result<Response, StatusCode> {
+pub async fn finalize_passkey_login_handler(Json(client_data): Json<ClientData>) -> Result<Response, StatusCode> {
     let client = reqwest::Client::new();
     let url = format!("{}/login/finalize", BASE_URL);
     let headers = [("Content-Type", "application/json")]; // Add more headers as needed
