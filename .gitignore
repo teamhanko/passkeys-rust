@@ -1,0 +1,44 @@
+# Logs
+Logs/
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+**/target/
+
+# Node modules and .env in any directory
+**/node_modules/
+**/.env
+
+**/.idea/
+**/.vscode/
+**/__pycache__/
+**/.tox/
+**/.coverage
+**/.coverage.*
+**/htmlcov/
+**/docs/_build/
+**/dist/
+**/.venv/
+
+# Distribution directories
+dist/
+dist-ssr/
+
+# Local files
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
